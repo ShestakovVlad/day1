@@ -9,8 +9,8 @@ var app = new Vue({
         students:[],
         currency:[],
         search:"",
-        start_ccy:"",
-        end_ccy:"",
+        start_ccy:0,
+        end_ccy:0,
         sell:0,
         buy:0,
         start_value:0,
@@ -29,7 +29,7 @@ var app = new Vue({
             console.log(response.data);
             this.students = response.data;
         })
-        axios.get("https://api.privatbank.ua/p24api/pubinfo?json&exchange&coursid=5").then((response)=>{
+        axios.get("https://api.monobank.ua/bank/currency").then((response)=>{
             console.log(response.data);
             this.currency = response.data;
         })
@@ -40,13 +40,16 @@ var app = new Vue({
         },
         convert:function(){
             for(let i=0; i<this.currency.length; i++){
-                if (this.currency[i].ccy==this.start_ccy)
-                      this.sell=this.currency[i].sale;
-                if (this.currency[i].ccy==this.end_ccy)
-                      this.buy=this.currency[i].buy;
+                if (this.currency[i].currencyCodeA==this.start_ccy && this.currency[i].currencyCodeB== 980 )
+                      this.sell=this.currency[i].rateSell;
+                if (this.currency[i].currencyCodeA==this.end_ccy && this.currency[i].currencyCodeB== 980)
+                      this.buy=this.currency[i].rateBuy;
             }
+            console.log("Start value = " + this.start_value);
+            console.log("Sell value = " + this.sell);
+            console.log("buy value = " + this.buy);
             this.end_value=(this.start_value*this.sell)/this.buy;
-            this.result = this.start_value + " " + this.start_ccy + " = " + this.end_value + " " + this.end_ccy;
+            this.result = this.start_value + " " +  " = " + this.end_value ;
             
         }
      }

@@ -23,15 +23,11 @@
                     <td><input type="checkbox" v-bind:checked="stud.isDonePr"></td>
                 </tr>
             </table>
-
-            <br>Enter amount: <input type="number" value="100" v-model="start_value">
-            <br>Convert from <input list="currency"  v-model="start_ccy">
-            <datalist id="currency">
-              <option value="USD">
-              <option value="EUR">
-              <option value="RUR">
-            </datalist>
-            to <input list="currency" v-model="end_ccy">
+            <br>Enter amount:  <input type="number" value="100" v-model="start_value"> 
+            <br>Код валют : USD:840 RUB:643 EUR:978
+            <br>Convert from <input type="number"  v-model="start_ccy">
+            
+            to <input type="number" v-model="end_ccy">
             <button v-on:click="convert">Convert</button>
             <br>{{result}}
 </div>
