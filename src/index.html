@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>3</title>
+    </head>
+    <body>
+        <h1>День 3</h1>
+        <br>
+        <div id="n1" >
+            <table >
+                <tr>
+                    <th>id</th>
+                    <th>pib</th>
+                    <th>grupa</th>
+                    <th>god</th>
+                    <th>zdal</th>
+                    </tr>
+                    <tr v-for="peop in people">
+                    <td>{{peop.id}}</td>
+                    <td v-bind:style="peop.pib.indexOf(search)>-1 && search.length >0 ? 'background-color:#FFB6C1' : 'background-color:#fff'">{{peop.pib}}</td>
+                    <td>{{peop.grupa}}</td>
+                    <td>{{peop.god}}</td>
+                    <td> <input type="checkbox" v-bind:checked="peop.zdal"> {{peop.zdal}}</td>
+                    <td ><a href="#" v-on:click="deletePeople(peop.id)">Удалить</a></td>
+                    </tr>
+                    </table>
+                   Ведите для поиска <input v-model="search">
+        </div>
+
+
+
+        <script src="/src/index.js"></script>
+    </body>
+</html>
