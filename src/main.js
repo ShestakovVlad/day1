@@ -8,5 +8,5 @@ import VueAxios from 'vue-axios'
 
 new Vue({
    render: h => h(App),
-   el: '#app',
+   el:'#app',
 })
