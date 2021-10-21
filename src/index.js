@@ -3,7 +3,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 
 var app = new Vue({
-    el:'#n1',
+    el:'#app',
     data:{
         search:"",
         students:[],
