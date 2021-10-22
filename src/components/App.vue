@@ -7,25 +7,29 @@
                     <th>Group</th>
                     <th>Mark</th>
                     <th>PR is Done</th>
+                    
                 </tr>
                 <tr v-for="stud in students" v-bind:key="stud._id" >
                     <td><img v-bind:src="stud.photo"  width="50px"></td>
                     <td >
                         <div v-bind:style="idTest == stud._id ? 'display:none' : 'display:inline'">{{stud.name}}</div>
-                        <input v-bind:style="idTest == stud._id ? 'display:inline' : 'display:none'"  v-model="names">
+                        <input v-bind:style="idTest == stud._id ? 'display:inline' : 'display:none'"  v-model="newStudent.name">
                     </td>
                     <td>
                         <div v-bind:style="idTest == stud._id ? 'display:none' : 'display:inline'">{{stud.group}}</div>
-                        <input v-bind:style="idTest == stud._id ? 'display:inline' : 'display:none'" v-model="groups">
+                        <select input v-bind:style="idTest == stud._id ? 'display:inline' : 'display:none'" name="group" v-model="newStudent.group" >
+                        <option value="RPZ 18 1/9">RPZ 18 1/9</option>
+                        <option value="RPZ 18 2/9">RPZ 18 2/9</option>
+                        </select>
                     </td>
                     <td>
                         <div v-bind:style="idTest == stud._id ? 'display:none' : 'display:inline'">{{stud.mark}}</div>
-                        <input v-bind:style="idTest == stud._id ? 'display:inline' : 'display:none'" v-model="marks">
+                        <input v-bind:style="idTest == stud._id ? 'display:inline' : 'display:none'" v-model="newStudent.mark">
                     </td>
                     <td>
                         
                         <div   type="checkbox" v-bind:style="idTest == stud._id ? 'display:none' : 'display:inline'" > <input type="checkbox" v-bind:checked="stud.isDonePr"></div>
-                        <input type="checkbox" v-bind:style="idTest == stud._id ? 'display:inline' : 'display:none'" v-model="isDonePrs">
+                        <input type="checkbox" v-bind:style="idTest == stud._id ? 'display:inline' : 'display:none'" v-model="newStudent.isDonePr">
                     </td>
                     <td>
                         <a href="#" v-on:click="deletes(stud._id)">Видалити</a>
@@ -64,6 +68,7 @@ import VueAxios from 'vue-axios'
            return {
             students: [],
             currency:[],
+             newStudent: {},
             search:"",
             result:"",
             name:"",
@@ -100,20 +105,21 @@ import VueAxios from 'vue-axios'
             this.reload = "RELOAD THE PAGE!";
         },
          get: function(id,name,group,isDone,mark){
+             this.newStudent.id = id;
+            this.newStudent.name = name;
+            this.newStudent.group = group;
+            this.newStudent.isDonePr = isDone;
+            this.newStudent.mark = mark;
             this.studId = id;
             this.idTest = id;
-            this.names = name;
-            this.groups = group;
-            this.marks =mark;
-            this.isDonePrs = isDone;
             this.showInput = true;
         },
         update:function(){
             Vue.axios.put("http://46.101.212.195:3000/students/"+this.studId, {
-                 name: this.names,
-                group: this.groups,
-                isDonePr: this.isDonePrs,
-                mark:this.marks,
+                name: this.newStudent.name,
+                group: this.newStudent.group,
+                isDonePr: this.newStudent.isDonePr,
+                mark:this.newStudent.mark,
                
             })
             axios.get("http://46.101.212.195:3000/students").then((response)=>{
