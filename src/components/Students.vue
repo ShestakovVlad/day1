@@ -34,9 +34,7 @@
                         <div   type="checkbox" v-bind:style="idTest == stud._id ? 'display:none' : 'display:inline'" > <input type="checkbox" v-bind:checked="stud.isDonePr"></div>
                         <input type="checkbox" v-bind:style="idTest == stud._id ? 'display:inline' : 'display:none'" v-model="newStudent.isDonePr">
                     </td>
-                    <td>
-                        <a href="#" v-on:click="deletes(stud._id)">Видалити</a>
-                    </td>
+                     <td><a href="#" v-on:click.prevent="deletes(stud._id)" v-show="stud.group==getCurrentUser.group">Видалити</a></td>
                     <td>
                         <button v-on:click="get(stud._id,stud.name,stud.group,stud.isDonePr,stud.mark)">
                             <img src="components/Pencil.svg.png" width="25px">
@@ -128,9 +126,10 @@ import VueAxios from 'vue-axios'
         getCount(){
             return this.$store.getters.getCount
         },
-        getCurrentUser(){
-            return this.$store.getters.CurrentUser
-        } 
+        
+        getCurrentUser () {
+                return this.$store.getters.getUser
+            }
     },
     
     

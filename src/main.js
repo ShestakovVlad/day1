@@ -6,11 +6,27 @@ import VueRouter from 'vue-router'
 import Students from './components/Students.vue'
 import StudentsInfo from './components/StudentsInfo.vue'
 import store from './components/store.js'
+import Login from './components/Login.vue'
 
-const routes= [{path:'/' ,component: Students},
+const routes= [{path:'/' ,component: Students, meta:{requiresAuth:true}},
 {path:'/student-info/:id',component:StudentsInfo,props:true },
+{path:'/Login',component:Login },
 ]
 const router=new VueRouter({routes
+})
+router.beforeEach((to, from, next)=>{
+    if(to.matched.some(record=>record.meta.requiresAuth)){
+        if(store.getters.getUser == null){
+            next({
+                path: '/Login',
+                query:{redirect: to.fullPath}
+            })
+        } else{
+            next()
+        }
+    } else{
+        next()
+    }
 })
     
     
